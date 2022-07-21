@@ -6,6 +6,8 @@ import { testEmpty } from "./helpers/testEmpty";
 
 import { testFirstLevel } from "./helpers/testFirstLevel";
 
+import { getByKeysFromClonedAndToCLone } from "./helpers/getByKeysFromClonedAndToCLone";
+
 describe("@DEEP_CLONE test deepClone", () => {
   test("should return undefined if empty arguments", () => {
     const result = deepClone();
@@ -102,7 +104,7 @@ describe("@DEEP_CLONE test deepClone", () => {
   );
 
   test("should clone low leveled object", () => {
-    const toClone: any = {
+    const toClone = {
       key1: 1,
       key2_1: "key35",
       key2_2: "35",
@@ -126,13 +128,51 @@ describe("@DEEP_CLONE test deepClone", () => {
       }
     };
 
-    const result = deepClone(toClone);
+    const result: typeof toClone = deepClone(
+      toClone
+    ) as unknown as typeof toClone;
+
+    const level2 = getByKeysFromClonedAndToCLone(toClone, result, ["level2"]);
+
+    const level2_go = getByKeysFromClonedAndToCLone(toClone, result, [
+      "level2",
+      "go"
+    ]);
+
+    const level2_go_lowLevel = getByKeysFromClonedAndToCLone(toClone, result, [
+      "level2",
+      "go",
+      "lowLevel"
+    ]);
+
+    const level2_go_perfect = getByKeysFromClonedAndToCLone(toClone, result, [
+      "level2",
+      "go",
+      "perfect"
+    ]);
+
+    const level2_go_perfect_funny = getByKeysFromClonedAndToCLone(
+      toClone,
+      result,
+      ["level2", "go", "perfect", "funny"]
+    );
 
     expect(result).toEqual(toClone);
+    expect(result).not.toStrictEqual(toClone);
+
+    [
+      level2,
+      level2_go,
+      level2_go_lowLevel,
+      level2_go_perfect,
+      level2_go_perfect_funny
+    ].map((values) => {
+      expect(values[0]).not.toStrictEqual(values[1]);
+    });
   });
 
   test("should clone high object", () => {
-    const toClone: any = {
+    const toClone = {
       a: 1,
       b: 2,
       c: 5,
@@ -159,8 +199,61 @@ describe("@DEEP_CLONE test deepClone", () => {
       }
     };
 
-    const result = deepClone(toClone);
+    const result: typeof toClone = deepClone(toClone);
+
+    const level2 = getByKeysFromClonedAndToCLone(toClone, result, ["level2"]);
+
+    const level2_h = getByKeysFromClonedAndToCLone(toClone, result, [
+      "level2",
+      "h"
+    ]);
+
+    const level2__level3 = getByKeysFromClonedAndToCLone(toClone, result, [
+      "level2",
+      "level3"
+    ]);
+
+    const level2__level3_a = getByKeysFromClonedAndToCLone(toClone, result, [
+      "level2",
+      "level3",
+      "a"
+    ]);
+
+    const level2__level3_a_5 = getByKeysFromClonedAndToCLone(toClone, result, [
+      "level2",
+      "level3",
+      "a",
+      "5"
+    ]);
+
+    const level2__level3_level4_map = getByKeysFromClonedAndToCLone(
+      toClone,
+      result,
+      ["level2", "level3", "level4", "map"]
+    );
+
+    const deepArray = getByKeysFromClonedAndToCLone(toClone, result, [
+      "level2",
+      "level3",
+      "level4_2",
+      "2",
+      "0",
+      "1"
+    ]);
 
     expect(result).toEqual(toClone);
+    expect(result).not.toStrictEqual(toClone);
+
+    [
+      level2,
+      level2_h,
+      level2__level3,
+      level2__level3_a,
+      level2__level3_a_5,
+      level2__level3_level4_map,
+      deepArray
+    ].map((values) => {
+      expect(values[0]).not.toStrictEqual(values[1]);
+    });
   });
 });
