@@ -1,3 +1,4 @@
+
 # Welcome to interview :t-rex:
 
 Repository with test tasks for self-testing. :lotus_position_man:
@@ -22,7 +23,9 @@ npm i
 
 ### :man_teacher: Any tasks checking :weight_lifting_man:
 
-_in [package json](https://github.com/Zwerruga/interview/blob/master/package.json) :man_with_probing_cane: add test commands like test: \<test-task-name\>_
+**Run one time:**
+
+> _in [package json](https://github.com/Zwerruga/interview/blob/master/package.json) :man_with_probing_cane: add test commands like test:\<test-task-name\>_
 
 :sassy_man: For example:
 
@@ -38,7 +41,11 @@ yarn test:deepClone
 npm run test:deepClone
 ```
 
-_in [package json](https://github.com/Zwerruga/interview/blob/master/package.json) :man_with_probing_cane: add test commands for watch any changes like test-watch: \<test-task-name\>_
+<br />
+
+**Run and watch changes:** 
+
+> _in [package json](https://github.com/Zwerruga/interview/blob/master/package.json) :man_with_probing_cane: add test commands for watch any changes like test-watch:\<test-task-name\>_
 
 :sassy_man: For example:
 
