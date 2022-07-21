@@ -223,7 +223,7 @@ describe("@DEEP_CLONE test deepClone", () => {
       "level2",
       "level3",
       "a",
-      "5"
+      5
     ]);
 
     const level2__level3_level4_map = getByKeysFromClonedAndToCLone(
@@ -236,9 +236,10 @@ describe("@DEEP_CLONE test deepClone", () => {
       "level2",
       "level3",
       "level4_2",
-      "2",
-      "0",
-      "1"
+      "arr",
+      2,
+      0,
+      1
     ]);
 
     expect(result).toEqual(toClone);

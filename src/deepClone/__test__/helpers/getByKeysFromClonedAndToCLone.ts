@@ -1,4 +1,4 @@
-const getByKeySequence = (obj: any, keys: string[]): any => {
+const getByKeySequence = (obj: any, keys: (string | number)[]): any => {
   if (keys.length === 0) return obj;
 
   if (obj[keys[0]]) {
@@ -11,7 +11,7 @@ const getByKeySequence = (obj: any, keys: string[]): any => {
 export const getByKeysFromClonedAndToCLone = <T>(
   obj1: T,
   obj2: T,
-  keys: string[]
+  keys: (string | number)[]
 ): [any, any] => {
   return [getByKeySequence(obj1, keys), getByKeySequence(obj2, keys)];
 };
