@@ -1,6 +1,6 @@
 {
   "include": ["**/.*", "./src"],
-  "exclude": ["__test__/*", "**/__test__", "*/__test__", "*.test", "*.config"],
+  "exclude": ["**/__test__/**", "*.test", "*.config"],
   "compilerOptions": {
     /* Basic Options */
     "target": "es6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
