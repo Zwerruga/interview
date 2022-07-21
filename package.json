@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "test:deepClone": "jest --watchAll -t '@DEEP_CLONE'",
+    "test:deepClone": "jest -t '@DEEP_CLONE'",
+    "test-watch:deepClone": "jest --watchAll -t '@DEEP_CLONE'",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts"
   },
