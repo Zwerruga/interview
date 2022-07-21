@@ -8,7 +8,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const getNamePatternError = (str: string) => {
+const getNamePatternError = (str: string): null | never => {
   const isCamelCase = /^((^[a-z]|[A-Z0-9])[a-z]*)+$/g.test(str);
 
   if (!isCamelCase) {
@@ -18,28 +18,31 @@ const getNamePatternError = (str: string) => {
   return null;
 };
 
-const getUpperSnakeCase = (str: string) => {
+const getUpperSnakeCase = (str: string): string => {
   const dashedStr = str.replace(/([a-z])([A-Z])/g, "$1_$2");
 
   return dashedStr.toUpperCase();
 };
 
 const prepare = (name: string) => {
-  const pathToSrc = path.join(__dirname, "..", "src");
+  const pathToSrc: string = path.join(__dirname, "..", "src");
 
-  const pathToNewDir = path.join(pathToSrc, name);
+  const pathToNewDir: string = path.join(pathToSrc, name);
 
   if (fs.existsSync(pathToNewDir)) throw `Directory with name: ${name} exist`;
 
-  const pathToNewFile = path.join(pathToNewDir, `${name}.ts`);
+  const pathToNewFile: string = path.join(pathToNewDir, `${name}.ts`);
 
-  const pathToIndexFile = path.join(pathToNewDir, `index.ts`);
+  const pathToIndexFile: string = path.join(pathToNewDir, `index.ts`);
 
-  const pathToTestDir = path.join(pathToNewDir, `__test__`);
+  const pathToTestDir: string = path.join(pathToNewDir, `__test__`);
 
-  const pathToFirstTestFile = path.join(pathToTestDir, `${name}.test.ts`);
+  const pathToFirstTestFile: string = path.join(
+    pathToTestDir,
+    `${name}.test.ts`
+  );
 
-  const testName = `@${getUpperSnakeCase(name)}`;
+  const testName: string = `@${getUpperSnakeCase(name)}`;
 
   fs.mkdirSync(pathToNewDir);
 
@@ -49,11 +52,7 @@ const prepare = (name: string) => {
     pathToIndexFile,
     `export { ${name} } from "./${name}"`,
     (err: any) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("The index file was saved!");
-      }
+      console.log(err ? err : "The index file was saved!");
     }
   );
 
@@ -63,11 +62,7 @@ const prepare = (name: string) => {
   return void 0;
 };`,
     (err: any) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(`The ${name}.ts file was saved!`);
-      }
+      console.log(err ? err : `The ${name}.ts file was saved!`);
     }
   );
 
@@ -83,11 +78,7 @@ describe("${testName} test ${name}", () => {
   });
 });`,
     (err: any) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(`The ${name}.ts file was saved!`);
-      }
+      console.log(err ? err : `The ${name}.test.ts file was saved!`);
     }
   );
 
