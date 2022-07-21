@@ -7,7 +7,7 @@
     "start": "tsc && node dist/index.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
-    "task:prepare": "node services/prepareTask.js",
+    "task:prepare": "ts-node services/prepareTask.ts",
     "test:deepClone": "jest -t '@DEEP_CLONE'",
     "test-watch:deepClone": "jest --watchAll -t '@DEEP_CLONE'",
     "test:promiseAllClone": "jest  -t '@PROMISE_ALL_CLONE'",
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
+    "@types/node": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.20.0",

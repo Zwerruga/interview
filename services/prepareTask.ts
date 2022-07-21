@@ -8,7 +8,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const getNamePatternError = (str) => {
+const getNamePatternError = (str: string) => {
   const isCamelCase = /^((^[a-z]|[A-Z0-9])[a-z]*)+$/g.test(str);
 
   if (!isCamelCase) {
@@ -18,13 +18,13 @@ const getNamePatternError = (str) => {
   return null;
 };
 
-const getUpperSnakeCase = (str) => {
+const getUpperSnakeCase = (str: string) => {
   const dashedStr = str.replace(/([a-z])([A-Z])/g, "$1_$2");
 
   return dashedStr.toUpperCase();
 };
 
-const prepare = (name) => {
+const prepare = (name: string) => {
   const pathToSrc = path.join(__dirname, "..", "src");
 
   const pathToNewDir = path.join(pathToSrc, name);
@@ -48,7 +48,7 @@ const prepare = (name) => {
   fs.writeFile(
     pathToIndexFile,
     `export { ${name} } from "./${name}"`,
-    (err) => {
+    (err: any) => {
       if (err) {
         console.log(err);
       } else {
@@ -62,7 +62,7 @@ const prepare = (name) => {
     `export const ${name} = (value?: any): any => {
   return void 0;
 };`,
-    (err) => {
+    (err: any) => {
       if (err) {
         console.log(err);
       } else {
@@ -82,7 +82,7 @@ describe("${testName} test ${name}", () => {
     expect(result).toEqual(undefined);
   });
 });`,
-    (err) => {
+    (err: any) => {
       if (err) {
         console.log(err);
       } else {
@@ -98,7 +98,7 @@ describe("${testName} test ${name}", () => {
   });
 };
 
-rl.question("Enter name of the task: ", (name) => {
+rl.question("Enter name of the task: ", (name: string) => {
   rl.close();
 
   getNamePatternError(name);
