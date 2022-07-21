@@ -1,5 +1,4 @@
-
-# Welcome to interview game 🧠
+# Welcome to interview :t-rex:
 
 Repository with test tasks for self-testing. :lotus_position_man:
 
@@ -10,38 +9,47 @@ Repository with test tasks for self-testing. :lotus_position_man:
 ### :ok_man: For starting run :boom: :runner:
 
 **with yarn** :heart:
+
 ```
-yarn 
+yarn
 ```
+
 **with npm** :anatomical_heart:
+
 ```
 npm i
 ```
 
 ### :man_teacher: Any tasks checking :weight_lifting_man:
 
-*in [package json](https://github.com/Zwerruga/interview/blob/master/package.json) :man_with_probing_cane: add test commands like test: \<test-task-name\>* 
+_in [package json](https://github.com/Zwerruga/interview/blob/master/package.json) :man_with_probing_cane: add test commands like test: \<test-task-name\>_
 
-:sassy_man: For example: 
+:sassy_man: For example:
 
 **with yarn** :heart:
+
 ```
 yarn test:deepClone
 ```
+
 **with npm** :anatomical_heart:
+
 ```
 npm run test:deepClone
 ```
 
-*in [package json](https://github.com/Zwerruga/interview/blob/master/package.json) :man_with_probing_cane: add test commands for watch any changes like test-watch: \<test-task-name\>* 
+_in [package json](https://github.com/Zwerruga/interview/blob/master/package.json) :man_with_probing_cane: add test commands for watch any changes like test-watch: \<test-task-name\>_
 
-:sassy_man: For example: 
+:sassy_man: For example:
 
 **with yarn** :heart:
+
 ```
 yarn test-watch:deepClone
 ```
+
 **with npm** :anatomical_heart:
+
 ```
 npm run test-watch:deepClone
 ```
