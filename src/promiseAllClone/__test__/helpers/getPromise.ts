@@ -6,12 +6,12 @@ export const delay = (ms: number) => {
 
 export const getPromise = ({
   resolveValue = null,
-  delayMs = 200,
+  delayMs,
   onResolve,
   rejectOption
 }: {
   resolveValue?: unknown;
-  delayMs?: number;
+  delayMs: number;
   onResolve?: (value?: unknown) => void;
   rejectOption?: {
     msg: string;

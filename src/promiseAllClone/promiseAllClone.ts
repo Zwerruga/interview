@@ -1,3 +1,3 @@
-export const PromiseAllClone = (arr: any[]) => {
+export const PromiseAllClone = (arr: any[]): any => {
   return void 0;
 };

@@ -20,13 +20,39 @@ describe("@PROMISE_ALL_CLONE test PromiseAllClone", () => {
   test("should resolve when all Promises in passed array resolves", async () => {
     const mockFn = jest.fn();
 
+    const delayMs = 200;
+
     const promises = Array.from({ length: 3 }, () =>
-      getPromise({ onResolve: mockFn })
+      getPromise({ delayMs, onResolve: mockFn })
     );
 
     await PromiseAllClone(promises);
 
     expect(mockFn.mock.calls.length).toBe(3);
+  });
+
+  test("should all promises run at one times", (done) => {
+    const countOfPromises = 10;
+
+    const delayMs = 200;
+
+    const timeToCheck = delayMs * 2;
+
+    const doSomething = jest.fn();
+
+    const promises = Array.from({ length: countOfPromises }, () =>
+      getPromise({ delayMs })
+    );
+
+    setTimeout(() => {
+      expect(doSomething.mock.calls.length).toEqual(1);
+      done();
+    }, timeToCheck);
+
+    PromiseAllClone(promises).then(() => {
+      doSomething();
+      done();
+    });
   });
 
   test("should keep the order of the results", async () => {
@@ -35,8 +61,10 @@ describe("@PROMISE_ALL_CLONE test PromiseAllClone", () => {
       (_, i) => Math.random() + i + 1
     );
 
+    const delayMs = 200;
+
     const promises = Array.from({ length: 3 }, (_, i) =>
-      getPromise({ resolveValue: resolveValues[i] })
+      getPromise({ delayMs, resolveValue: resolveValues[i] })
     );
 
     const result = await PromiseAllClone(promises);
@@ -49,9 +77,11 @@ describe("@PROMISE_ALL_CLONE test PromiseAllClone", () => {
 
     const errorMsg = `Reject error #${Math.random()}`;
 
-    const promises = Array.from({ length: 2 }, (_, i) => getPromise({})).concat(
-      getPromise({ rejectOption: { msg: errorMsg } })
-    );
+    const delayMs = 200;
+
+    const promises = Array.from({ length: 2 }, (_, i) =>
+      getPromise({ delayMs })
+    ).concat(getPromise({ delayMs, rejectOption: { msg: errorMsg } }));
 
     try {
       await PromiseAllClone(promises);
@@ -67,10 +97,17 @@ describe("@PROMISE_ALL_CLONE test PromiseAllClone", () => {
 
     const errorFirstMsg = `Reject first error #${Math.random()}`;
 
+    const defaultDelayMs = 200;
+
+    const fastDelayMs = defaultDelayMs / 2;
+
     const promises = [
-      getPromise({}),
-      getPromise({ delayMs: 100, rejectOption: { msg: errorFirstMsg } }),
-      getPromise({ delayMs: 200, rejectOption: { msg: errorMsg } })
+      getPromise({ delayMs: defaultDelayMs }),
+      getPromise({
+        delayMs: fastDelayMs,
+        rejectOption: { msg: errorFirstMsg }
+      }),
+      getPromise({ delayMs: defaultDelayMs, rejectOption: { msg: errorMsg } })
     ];
 
     try {
