@@ -9,6 +9,14 @@ describe("@PROMISE_ALL_CLONE test PromiseAllClone", () => {
     expect(result).toBeInstanceOf(Promise);
   });
 
+  test("should return wrapped Promise.resolve, if any received in array not promise", async () => {
+    const notPromises = Array.from({ length: 3 }, () => Math.random());
+
+    const result = await PromiseAllClone(notPromises);
+
+    expect(result).toEqual(notPromises);
+  });
+
   test("should resolve when all Promises in passed array resolves", async () => {
     const mockFn = jest.fn();
 
