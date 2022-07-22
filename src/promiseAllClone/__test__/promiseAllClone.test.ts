@@ -37,16 +37,24 @@ describe("@PROMISE_ALL_CLONE test PromiseAllClone", () => {
   });
 
   test("should reject if one of passed Promises reject with this error", async () => {
+    expect.assertions(1);
+
     const errorMsg = `Reject error #${Math.random()}`;
 
     const promises = Array.from({ length: 2 }, (_, i) => getPromise({})).concat(
       getPromise({ rejectOption: { msg: errorMsg } })
     );
 
-    expect(PromiseAllClone(promises)).rejects.toEqual(errorMsg);
+    try {
+      await PromiseAllClone(promises);
+    } catch (err) {
+      expect(err).toEqual(errorMsg);
+    }
   });
 
   test("should throw first rejected if one of passed Promises reject with this error", async () => {
+    expect.assertions(1);
+
     const errorMsg = `Reject error #${Math.random()}`;
 
     const errorFirstMsg = `Reject first error #${Math.random()}`;
@@ -57,6 +65,10 @@ describe("@PROMISE_ALL_CLONE test PromiseAllClone", () => {
       getPromise({ delayMs: 200, rejectOption: { msg: errorMsg } })
     ];
 
-    expect(PromiseAllClone(promises)).rejects.toEqual(errorFirstMsg);
+    try {
+      await PromiseAllClone(promises);
+    } catch (err) {
+      expect(err).toEqual(errorFirstMsg);
+    }
   });
 });
