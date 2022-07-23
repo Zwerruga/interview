@@ -9,7 +9,7 @@ describe("@PROMISE_ALL_CLONE test PromiseAllClone", () => {
     expect(result).toBeInstanceOf(Promise);
   });
 
-  test("should return wrapped Promise.resolve, if any received in array not promise", async () => {
+  test("should working with not promise values", async () => {
     const notPromises = Array.from({ length: 3 }, () => Math.random());
 
     const result = await PromiseAllClone(notPromises);
