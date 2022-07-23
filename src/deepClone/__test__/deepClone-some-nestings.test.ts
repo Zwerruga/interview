@@ -1,100 +1,9 @@
 import { deepClone } from "../deepClone";
 
-import { testPrimitive } from "./helpers/testPrimitive";
-
-import { testEmpty } from "./helpers/testEmpty";
-
-import { testFirstLevel } from "./helpers/testFirstLevel";
-
 import { getByKeysFromClonedAndToCLone } from "./helpers/getByKeysFromClonedAndToCLone";
 
 describe("@DEEP_CLONE test deepClone", () => {
-  test("should return undefined if empty arguments", () => {
-    const result = deepClone();
-
-    expect(result).toBeUndefined();
-  });
-
-  testPrimitive("should clone number", Math.random());
-
-  testPrimitive("should clone NaN", NaN);
-
-  testPrimitive("should clone string", `${Math.random()}`);
-
-  testPrimitive("should clone null", null);
-
-  testPrimitive("should clone undefined", undefined);
-
-  testPrimitive("should clone boolean true", true);
-
-  testPrimitive("should clone boolean false", false);
-
-  testEmpty("should clone empty array", []);
-
-  testEmpty("should clone empty object", {});
-
-  testEmpty("should clone empty Set", new Set());
-
-  testEmpty("should clone empty Map", new Map());
-
-  test("should clone Function", () => {
-    const cloned = function sum(a: number, b: number) {
-      return a + b;
-    };
-
-    const result = deepClone(cloned);
-
-    const funcResult = cloned(1, 2);
-
-    const clonedFuncResult = result?.(1, 2);
-
-    expect(result).toBeInstanceOf(Function);
-    expect(result).not.toStrictEqual(cloned);
-    expect(funcResult).toEqual(clonedFuncResult);
-  });
-
-  test("should clone ArrowFunction", () => {
-    const cloned = (a: number, b: number) => {
-      return a + b;
-    };
-
-    const result = deepClone(cloned);
-
-    const funcResult = cloned(1, 2);
-    const clonedFuncResult = result?.(1, 2);
-
-    expect(result).toBeInstanceOf(Function);
-    expect(result).not.toStrictEqual(cloned);
-    expect(funcResult).toEqual(clonedFuncResult);
-  });
-
-  testFirstLevel("should clone deep one level array", [
-    1,
-    2,
-    3,
-    "dsdsd",
-    {},
-    null,
-    undefined,
-    undefined,
-    null,
-    Math.random(),
-    []
-  ]);
-
-  testFirstLevel("should clone deep one level Set", new Set([1, 2, 3, 4, 5]));
-
-  testFirstLevel(
-    "should clone deep one level Map",
-    new Map<any, any>([
-      ["hello3", {}],
-      ["hello", 1],
-      ["hello2", 2],
-      ["hello4", []]
-    ])
-  );
-
-  test("should clone deep one level Set", () => {
+  test("should clone deep some level Set", () => {
     const toClone = new Set([1, {}, [1, 2, 3], 4, 5]);
 
     const result = deepClone(toClone);
@@ -111,12 +20,12 @@ describe("@DEEP_CLONE test deepClone", () => {
     expect(isValuesStrictEqual).toBeFalsy();
   });
 
-  test("should clone deep one level Map", () => {
+  test("should clone deep some level Map", () => {
     const toClone = new Map<any, any>([
       ["hello3", {}],
       ["hello", 1],
       ["hello2", 2],
-      ["hello4", []]
+      [{ hello: "world" }, []]
     ]);
 
     const result = deepClone(toClone);
@@ -124,33 +33,17 @@ describe("@DEEP_CLONE test deepClone", () => {
     const isStrictEqual = result === toClone;
 
     const isValuesStrictEqual =
-      toClone.get("hello3") === result.get("hello3") ||
-      toClone.get("hello4") === result.get("hello4");
+      [...toClone.keys()][toClone.size - 1] ===
+        [...result.keys()][result.size - 1] ||
+      toClone.get("hello3") === result.get("hello3");
 
-    expect(result).toEqual(toClone);
+    expect(result).toBeInstanceOf(Map);
+    expect(JSON.stringify(result)).toEqual(JSON.stringify(toClone));
     expect(isStrictEqual).toBeFalsy();
     expect(isValuesStrictEqual).toBeFalsy();
   });
 
-  test("should clone deep one level object", () => {
-    const toClone = {
-      key1: 1,
-      [Math.random() + 1]: Math.random() + 15,
-      key2: {},
-      keyFunc: () => 3,
-      key3: [],
-      key4: null
-    };
-
-    const result = deepClone(toClone);
-
-    const isStrictEqual = result === toClone;
-
-    expect(JSON.stringify(result)).toEqual(JSON.stringify(toClone));
-    expect(isStrictEqual).toBeFalsy();
-  });
-
-  test("should clone low leveled object", () => {
+  test("should clone some leveled object", () => {
     const toClone = {
       key1: 1,
       key2_1: "key35",
@@ -313,5 +206,7 @@ describe("@DEEP_CLONE test deepClone", () => {
 
       expect(values[0].prototype).toEqual(values[1].prototype);
     });
+
+    expect(level2_h[0].name).toEqual(level2_h[1].name);
   });
 });
