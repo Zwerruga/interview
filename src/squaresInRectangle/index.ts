@@ -1,0 +1,1 @@
+export { squaresInRectangle } from "./squaresInRectangle";
