@@ -11,7 +11,9 @@
     "test:deepClone": "jest -t '@DEEP_CLONE'",
     "test-watch:deepClone": "jest --watchAll -t '@DEEP_CLONE'",
     "test:promiseAllClone": "jest  -t '@PROMISE_ALL_CLONE'",
-    "test-watch:promiseAllClone": "jest --watchAll -t '@PROMISE_ALL_CLONE'"
+    "test-watch:promiseAllClone": "jest --watchAll -t '@PROMISE_ALL_CLONE'",
+    "test:squaresInRectangle": "jest  -t '@SQUARES_IN_RECTANGLE'",
+    "test-watch:squaresInRectangle": "jest --watchAll  -t '@SQUARES_IN_RECTANGLE'"
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
