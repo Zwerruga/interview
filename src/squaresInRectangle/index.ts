@@ -1,1 +1,1 @@
-export { squaresInRectangle } from "./squaresInRectangle"
+export { squaresInRectangle } from "./squaresInRectangle";

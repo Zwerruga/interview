@@ -1,3 +1,4 @@
+import { sqInRect } from "squares-in-rectangle";
 import { squaresInRectangle } from "../squaresInRectangle";
 
 describe("@SQUARES_IN_RECTANGLE test squaresInRectangle", () => {
@@ -11,18 +12,17 @@ describe("@SQUARES_IN_RECTANGLE test squaresInRectangle", () => {
     expect(squaresInRectangle(0, 0)).toEqual(null);
   });
 
+  describe("Random tests", () => {
+    const randomInt = (min: number, max: number) =>
+      Math.floor(Math.random() * (max - min + 1) + min);
 
-   describe("Random tests",function(){
-    // @ts-ignore
-    const t=(t,a)=>Math.floor(Math.random()*(a-t+1)+t),M=(t,a,h?)=>(h=null!=h&&h,t==a&&0==h?null:t==a?[t]:[Math.min(t,a)].concat(M(Math.min(t,a),Math.max(t,a)-Math.min(t,a),!0)));
-
-    for (let _=0;_<40;_++){
-      let randexp=t(1,2);
-      let lng=t(1,2*Math.pow(10,randexp));
-      let wdth=t(1,2*Math.pow(10,randexp));
-      it("Testing for sqInRect("+lng+", "+wdth+")", () => {
-        expect(squaresInRectangle(lng, wdth)).toEqual(M(lng, wdth));
-      })
+    for (let i = 0; i++ < 40;) {
+      const randexp = randomInt(1, 2);
+      const lng = randomInt(1, 2 * Math.pow(10, randexp));
+      const wdth = randomInt(1, 2 * Math.pow(10, randexp));
+      it("Testing for sqInRect(" + lng + ", " + wdth + ")", () => {
+        expect(squaresInRectangle(lng, wdth)).toEqual(sqInRect(lng, wdth));
+      });
     }
-  })
+  });
 });
